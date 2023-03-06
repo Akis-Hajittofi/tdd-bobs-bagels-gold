@@ -60,57 +60,34 @@ describe("Basket", () => {
     expect(result).toEqual(expected);
   });
 
-  it("Adding items to a full basket returns error", () => {
+  it("Adding item to full basket isn't added, returns null", () => {
     //setup
-    basket.addToBasket("Blueberry");
-    basket.addToBasket("Garlic");
-    basket.addToBasket("Plain");
-    basket.addToBasket("Onion");
-    //execute
-    const result = basket.addToBasket("Asiago");
-    //verify
-    expect(result).toEqual("Basket is full!");
-  });
-  it("overfilling my basket results in a full basket", () => {
-    //setup
-    const expected = [
+    basket.modifyBasketSize(2);
+    const expectedBasket = [
       {
-        sku: "BGLS",
+        sku: "BGLO",
         price: 0.49,
         name: "Bagel",
-        variant: "Sesame",
+        variant: "Onion",
       },
       {
-        sku: "BGLA",
-        price: 0.99,
+        sku: "BGLB",
+        price: 0.49,
         name: "Bagel",
-        variant: "Asiago",
-      },
-      {
-        sku: "BGLG",
-        price: 0.99,
-        name: "Bagel",
-        variant: "Garlic",
-      },
-      {
-        sku: "BGLW",
-        price: 0.99,
-        name: "Bagel",
-        variant: "Whole Wheat",
+        variant: "Blueberry",
       },
     ];
-    basket.addToBasket("Sesame");
-    basket.addToBasket("Asiago");
-    basket.addToBasket("Garlic");
-    basket.addToBasket("Whole Wheat");
     //execute
-    basket.addToBasket("Blueberry"); // blueberry should not be added to basket.
-    const result = basket.getBasket();
+    basket.addToBasket("BGLO");
+    basket.addToBasket("BGLB");
+    const result = basket.addToBasket("BGLA");
+    const basket = getBasket();
     //verify
-    expect(result).toEqual(expected);
-    expect(basket.getBasket().length).toEqual(4);
+    expect(result).toEqual(null);
+    expect(basket).toEqual(expectedBasket);
   });
-  it("Adding two of the same bagel to my basket", () => {
+
+  it("Adding two of the same bagel to basket", () => {
     //setup
     const expected = [
       {
@@ -127,8 +104,8 @@ describe("Basket", () => {
       },
     ];
     //execute
-    basket.addToBasket("Blueberry");
-    basket.addToBasket("Blueberry");
+    basket.addToBasket("BGLB");
+    basket.addToBasket("BGLB");
     const result = basket.getBasket();
     //verify
     expect(result).toEqual(expected);

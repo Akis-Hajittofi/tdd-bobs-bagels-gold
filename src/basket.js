@@ -3,7 +3,7 @@ const inventory = require("./inventory.js");
 class Basket {
   constructor(basket = [], basketSize = 4) {
     this.basket = basket;
-    this.basketSize = basketSize; // Not clear if this is for capacity or not / I think it's pretty clear. The size of the basket is the amount of thing that can fit, no?
+    this.basketSize = basketSize; // On second thoughts, I think it is clear ;)
   }
 
   // Change to forEach and put more suitable parameter name
@@ -33,6 +33,15 @@ class Basket {
       }
     }
     // Return an object with a succes value and the item that was removed
+    /* {
+      success: true,
+      data: {
+        sku: "BGLB",
+        price: 0.49,
+        name: "Bagel",
+        variant: "Blueberry",
+      },
+    }; */
     return "This Bagel doesn't exist";
   }
 
